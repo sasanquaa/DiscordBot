@@ -1,4 +1,4 @@
-####REST-API####
+REST
 
 + Class Rest (wrapper for HTTP/REST with OpenSSL) with open(), close(), send(), init(), handshake(), queueBuffer(), readBuffer(), wait()
 	1. init() initialize SSL and set non-blocking I/O for socket

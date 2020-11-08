@@ -30,7 +30,7 @@ static const SSL_METHOD *DEFAULT_METHOD = TLSv1_2_method();
 
 //Macros
 
-#define DEFAULT_BUFFER_SIZE 1024
+#define DEFAULT_BUFFER_SIZE 4096
 
 #define TIMEOUT 5000L
 

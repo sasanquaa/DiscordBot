@@ -210,7 +210,7 @@ void endpoint<connection,config>::send(connection_hdl hdl, message_ptr msg) {
 }
 
 template <typename connection, typename config>
-void endpoint<connection,config>::close(connection_hdl hdl, close::status::value
+void endpoint<connection,config>::close(connection_hdl hdl, closews::status::value
     const code, std::string const & reason,
     std::error_code & ec)
 {
@@ -220,7 +220,7 @@ void endpoint<connection,config>::close(connection_hdl hdl, close::status::value
 }
 
 template <typename connection, typename config>
-void endpoint<connection,config>::close(connection_hdl hdl, close::status::value
+void endpoint<connection,config>::close(connection_hdl hdl, closews::status::value
     const code, std::string const & reason)
 {
     std::error_code ec;

@@ -249,17 +249,17 @@ inline std::error_code make_error_code(error::processor_errors e) {
  * Looks up the appropriate WebSocket close code that should be sent after an
  * error of this sort occurred.
  *
- * If the error is not in the processor category close::status::blank is
+ * If the error is not in the processor category closews::status::blank is
  * returned.
  *
  * If the error isn't normally associated with reasons to close a connection
  * (such as errors intended to be used internally or delivered to client
  * applications, ex: invalid arguments) then
- * close::status::internal_endpoint_error is returned.
+ * closews::status::internal_endpoint_error is returned.
  */
-inline close::status::value to_ws(std::error_code ec) {
+inline closews::status::value to_ws(std::error_code ec) {
     if (ec.category() != get_processor_category()) {
-        return close::status::blank;
+        return closews::status::blank;
     }
 
     switch (ec.value()) {
@@ -273,14 +273,14 @@ inline close::status::value to_ws(std::error_code ec) {
         case error::masking_forbidden:
         case error::reserved_close_code:
         case error::invalid_close_code:
-            return close::status::protocol_error;
+            return closews::status::protocol_error;
         case error::invalid_payload:
         case error::invalid_utf8:
-            return close::status::invalid_payload;
+            return closews::status::invalid_payload;
         case error::message_too_big:
-            return close::status::message_too_big;
+            return closews::status::message_too_big;
         default:
-            return close::status::internal_endpoint_error;
+            return closews::status::internal_endpoint_error;
     }
 }
 

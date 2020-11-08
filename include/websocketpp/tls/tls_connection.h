@@ -73,6 +73,7 @@ public:
 		, m_alog(alog)
 		, m_elog(elog)
 		, m_remote_endpoint("SauceSearch BOT")
+	//	, m_deflate()
 	{
 		m_alog->write(logger::alevel::app, NAME + " Init tls_connection constructor");
 		m_host = "gateway.discord.gg";
@@ -467,10 +468,10 @@ private:
 
 	bool const      m_is_server;
 	bool            m_is_secure;
+	std::string		  m_remote_endpoint;
+	std::stringstream m_s;
 	std::shared_ptr<alog_type>     m_alog;
 	std::shared_ptr<elog_type>     m_elog;
-	std::string     m_remote_endpoint;
-	std::stringstream m_s;
 	// This lock ensures that only one thread can edit read data for this
 	// connection. This is a very coarse lock that is basically locked all the
 	// time. The nature of the connection is such that it cannot be

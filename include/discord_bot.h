@@ -10,6 +10,7 @@
 #include <sstream>
 #include <chrono>
 #include <rate_limit.h>
+#include <misc/zlib.h>
 
 //Using macros and typedef
 
@@ -34,7 +35,6 @@ typedef std::function<void()>											on_open_handler;
 typedef std::function<void(int, std::string, const nlohmann::json&)>	on_message_handler;
 
 typedef std::function<void()>											on_close_handler;
-
 
 class discord_bot {
 
@@ -158,7 +158,6 @@ private:
 	on_message_handler	m_on_message;
 	on_message_handler	m_on_message_orig;
 	on_close_handler	m_on_close;
-
 
 	bool m_initialized;
 

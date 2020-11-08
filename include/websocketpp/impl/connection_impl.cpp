@@ -300,7 +300,7 @@ void connection<config>::pong(std::string const & payload) {
 }
 
 template <typename config>
-void connection<config>::close(close::status::value const code,
+void connection<config>::close(closews::status::value const code,
     std::string const & reason, std::error_code & ec)
 {
     if (m_alog->static_test(logger::alevel::devel)) {
@@ -318,11 +318,11 @@ void connection<config>::close(close::status::value const code,
        return;
     }
 
-    ec = this->send_close_frame(code,tr,false,close::status::terminal(code));
+    ec = this->send_close_frame(code,tr,false,closews::status::terminal(code));
 }
 
 template<typename config>
-void connection<config>::close(close::status::value const code,
+void connection<config>::close(closews::status::value const code,
     std::string const & reason)
 {
     std::error_code ec;
@@ -1705,7 +1705,7 @@ void connection<config>::terminate(std::error_code const & ec) {
     terminate_status tstat = unknown;
     if (ec) {
         m_ec = ec;
-        m_local_close_code = close::status::abnormal_close;
+        m_local_close_code = closews::status::abnormal_close;
         m_local_close_reason = ec.message();
     }
 
@@ -1976,7 +1976,7 @@ void connection<config>::process_control_frame(typename config::message_type::pt
         m_alog->write(logger::alevel::devel,"got close frame");
         // record close code and reason somewhere
 
-        m_remote_close_code = close::extract_code(msg->get_payload(),ec);
+        m_remote_close_code = closews::extract_code(msg->get_payload(),ec);
         if (ec) {
             s.str("");
             if (config::drop_on_protocol_error) {
@@ -1988,7 +1988,7 @@ void connection<config>::process_control_frame(typename config::message_type::pt
                 s << "Received invalid close code " << m_remote_close_code
                   << " sending acknowledgement and closing";
                 m_elog->write(logger::elevel::devel,s.str());
-                ec = send_close_ack(close::status::protocol_error,
+                ec = send_close_ack(closews::status::protocol_error,
                     "Invalid close code");
                 if (ec) {
                     log_err(logger::elevel::devel,"send_close_ack",ec);
@@ -1997,7 +1997,7 @@ void connection<config>::process_control_frame(typename config::message_type::pt
             return;
         }
 
-        m_remote_close_reason = close::extract_reason(msg->get_payload(),ec);
+        m_remote_close_reason = closews::extract_reason(msg->get_payload(),ec);
         if (ec) {
             if (config::drop_on_protocol_error) {
                 m_elog->write(logger::elevel::devel,
@@ -2006,7 +2006,7 @@ void connection<config>::process_control_frame(typename config::message_type::pt
             } else {
                 m_elog->write(logger::elevel::devel,
                     "Received invalid close reason. Sending acknowledgement and closing");
-                ec = send_close_ack(close::status::protocol_error,
+                ec = send_close_ack(closews::status::protocol_error,
                     "Invalid close reason");
                 if (ec) {
                     log_err(logger::elevel::devel,"send_close_ack",ec);
@@ -2053,14 +2053,14 @@ void connection<config>::process_control_frame(typename config::message_type::pt
 }
 
 template <typename config>
-std::error_code connection<config>::send_close_ack(close::status::value code,
+std::error_code connection<config>::send_close_ack(closews::status::value code,
     std::string const & reason)
 {
     return send_close_frame(code,reason,true,m_is_server);
 }
 
 template <typename config>
-std::error_code connection<config>::send_close_frame(close::status::value code,
+std::error_code connection<config>::send_close_frame(closews::status::value code,
     std::string const & reason, bool ack, bool terminal)
 {
     m_alog->write(logger::alevel::devel,"send_close_frame");
@@ -2069,26 +2069,26 @@ std::error_code connection<config>::send_close_frame(close::status::value code,
 
     // If silent close is set, respect it and blank out close information
     // Otherwise use whatever has been specified in the parameters. If
-    // parameters specifies close::status::blank then determine what to do
+    // parameters specifies closews::status::blank then determine what to do
     // based on whether or not this is an ack. If it is not an ack just
     // send blank info. If it is an ack then echo the close information from
     // the remote endpoint.
     if (config::silent_close) {
         m_alog->write(logger::alevel::devel,"closing silently");
-        m_local_close_code = close::status::no_status;
+        m_local_close_code = closews::status::no_status;
         m_local_close_reason.clear();
-    } else if (code != close::status::blank) {
+    } else if (code != closews::status::blank) {
         m_alog->write(logger::alevel::devel,"closing with specified codes");
         m_local_close_code = code;
         m_local_close_reason = reason;
     } else if (!ack) {
         m_alog->write(logger::alevel::devel,"closing with no status code");
-        m_local_close_code = close::status::no_status;
+        m_local_close_code = closews::status::no_status;
         m_local_close_reason.clear();
-    } else if (m_remote_close_code == close::status::no_status) {
+    } else if (m_remote_close_code == closews::status::no_status) {
         m_alog->write(logger::alevel::devel,
             "acknowledging a no-status close with normal code");
-        m_local_close_code = close::status::normal;
+        m_local_close_code = closews::status::normal;
         m_local_close_reason.clear();
     } else {
         m_alog->write(logger::alevel::devel,"acknowledging with remote codes");

@@ -1,4 +1,3 @@
-#pragma once
 
 #ifndef REST_STRUCTS
 #define REST_STRUCTS
@@ -6,6 +5,7 @@
 #include <string>
 #include <misc/json.hpp>
 #include <sstream>
+#include <iostream>
 
 #define HTTP std::string("HTTP/1.1\r\n")
 
@@ -103,7 +103,7 @@ inline std::string handle_request(
 
 inline nlohmann::json handle_response( 
 	const std::string& res) {
-
+	std::cout << "Raw response:\n" << res;
 	std::stringstream s(res);
 	std::string l;
 

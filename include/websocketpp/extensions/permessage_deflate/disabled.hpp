@@ -39,7 +39,9 @@
 #include <string>
 #include <utility>
 
+
 namespace extensions {
+
 namespace permessage_deflate {
 
 /// Stub class for use when disabling permessage_deflate extension
@@ -106,7 +108,7 @@ public:
      * @return Error or status code
      */
     std::error_code compress(std::string const &, std::string &) {
-        return make_error_code(error::disabled);
+        return make_error_code(extensions::error::disabled);
     }
 
     /// Decompress bytes
@@ -117,7 +119,7 @@ public:
      * @return Error or status code
      */
     std::error_code decompress(uint8_t const *, size_t, std::string &) {
-        return make_error_code(error::disabled);
+        return make_error_code(extensions::error::disabled);
     }
 };
 

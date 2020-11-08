@@ -151,7 +151,7 @@ namespace {
 	struct _identify {
 		_identify() {
 			identify.set_data_key<string>("token", "");
-			identify.set_data_key<bool>("compress", false);
+			identify.set_data_key<bool>("compress", true);
 			identify.set_data_key<bool>("guild_subscriptions", false);
 			identify.set_data_key<int>("intents", 0);
 			identify.set_data_key<json>("properties", 
@@ -176,6 +176,7 @@ namespace {
 			message_headers.set_data_key<string>("Accept", "*/*");
 			message_headers.set_data_key<string>("Authorization", "");
 			message_headers.set_data_key<string>("User-Agent", "Abby (https://github.com/sasanquaa, 1)");
+			message_headers.set_data_key<string>("Connection", "keep-alive");
 			message_headers.set_data_key<string>("Content-Type", "application/json");
 			message_headers.set_data_key<int>("Content-Length", 0);
 		

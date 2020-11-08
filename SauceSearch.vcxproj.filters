@@ -30,6 +30,27 @@
     <ClCompile Include="src\rate_limit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test\rest\rest_impl\rest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\rest\rest_impl\request.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\rest\rest_impl\response.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\threading\thread_test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\rest\rest_impl\rest_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\rest\rest_read_thread.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\rest\rest_impl\rest_read_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="websocketpp_modified\client_tls_config.h">
@@ -72,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\websocketpp\extensions\extension.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\websocketpp\extensions\permessage_deflate\disabled.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\websocketpp\extensions\permessage_deflate\enabled.hpp">
@@ -531,6 +549,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\openssl\x509v3err.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\misc\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rest\response.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\rest\hsocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\rest\request.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\rest\response.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\rest\rest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\rest\rest_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -96,9 +96,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libcrypto.lib;libssl.lib;ws2_32.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcrypto.lib;libssl.lib;ws2_32.lib;zlibstatic.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -135,12 +136,20 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\rate_limit.cpp" />
     <ClCompile Include="src\rest\rest.cpp" />
+    <ClCompile Include="test\rest\rest_impl\request.cpp" />
+    <ClCompile Include="test\rest\rest_impl\response.cpp" />
+    <ClCompile Include="test\rest\rest_impl\rest.cpp" />
+    <ClCompile Include="test\rest\rest_impl\rest_handler.cpp" />
+    <ClCompile Include="test\rest\rest_impl\rest_read_thread.cpp" />
+    <ClCompile Include="test\rest\rest_read_thread.h" />
+    <ClCompile Include="test\threading\thread_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\discord_bot.h" />
     <ClInclude Include="include\events.h" />
     <ClInclude Include="include\misc\json.hpp" />
     <ClInclude Include="include\misc\syslog.h" />
+    <ClInclude Include="include\misc\zconf.h" />
     <ClInclude Include="include\opcode.hpp" />
     <ClInclude Include="include\openssl\aes.h" />
     <ClInclude Include="include\openssl\asn1.h" />
@@ -249,6 +258,7 @@
     <ClInclude Include="include\payload.hpp" />
     <ClInclude Include="include\rate_limit.h" />
     <ClInclude Include="include\rest\hsocket.h" />
+    <ClInclude Include="include\rest\response.h" />
     <ClInclude Include="include\rest\rest.h" />
     <ClInclude Include="include\rest\request.h" />
     <ClInclude Include="include\websocketpp\base64.hpp" />
@@ -263,7 +273,6 @@
     <ClInclude Include="include\websocketpp\endpoint.h" />
     <ClInclude Include="include\websocketpp\error.cpp" />
     <ClInclude Include="include\websocketpp\extensions\extension.hpp" />
-    <ClInclude Include="include\websocketpp\extensions\permessage_deflate\disabled.hpp" />
     <ClInclude Include="include\websocketpp\extensions\permessage_deflate\enabled.hpp" />
     <ClInclude Include="include\websocketpp\frame.cpp" />
     <ClInclude Include="include\websocketpp\http\constants.h" />
@@ -298,6 +307,11 @@
     <ClInclude Include="include\websocketpp\tls\tls_endpoint.h" />
     <ClInclude Include="include\websocketpp\tls\endpoint_base.h" />
     <ClInclude Include="include\misc\zlib.h" />
+    <ClInclude Include="test\rest\rest_handler.h" />
+    <ClInclude Include="test\rest\hsocket.h" />
+    <ClInclude Include="test\rest\request.h" />
+    <ClInclude Include="test\rest\response.h" />
+    <ClInclude Include="test\rest\rest.h" />
     <ClInclude Include="websocketpp_modified\client_tls_config.h" />
     <ClInclude Include="websocketpp_modified\connection.h" />
     <ClInclude Include="websocketpp_modified\connection_base.h" />

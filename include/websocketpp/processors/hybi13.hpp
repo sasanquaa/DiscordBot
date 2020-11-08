@@ -692,18 +692,18 @@ public:
         return this->prepare_control(frame::opcode::PONG,in,out);
     }
 
-    virtual std::error_code prepare_close(close::status::value code,
+    virtual std::error_code prepare_close(closews::status::value code,
         std::string const & reason, message_ptr out) const
     {
-        if (close::status::reserved(code)) {
+        if (closews::status::reserved(code)) {
             return make_error_code(error::reserved_close_code);
         }
 
-        if (close::status::invalid(code) && code != close::status::no_status) {
+        if (closews::status::invalid(code) && code != closews::status::no_status) {
             return make_error_code(error::invalid_close_code);
         }
 
-        if (code == close::status::no_status && reason.size() > 0) {
+        if (code == closews::status::no_status && reason.size() > 0) {
             return make_error_code(error::reason_requires_code);
         }
 
@@ -713,8 +713,8 @@ public:
 
         std::string payload;
 
-        if (code != close::status::no_status) {
-            close::code_converter val;
+        if (code != closews::status::no_status) {
+            closews::code_converter val;
             val.i = htons(code);
 
             payload.resize(reason.size()+2);

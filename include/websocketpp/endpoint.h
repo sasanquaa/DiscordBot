@@ -577,9 +577,9 @@ public:
     void send(connection_hdl hdl, message_ptr msg, std::error_code & ec);
     void send(connection_hdl hdl, message_ptr msg);
 
-    void close(connection_hdl hdl, close::status::value const code,
+    void close(connection_hdl hdl, closews::status::value const code,
         std::string const & reason, std::error_code & ec);
-    void close(connection_hdl hdl, close::status::value const code,
+    void close(connection_hdl hdl, closews::status::value const code,
         std::string const & reason);
 
     /// Send a ping to a specific connection

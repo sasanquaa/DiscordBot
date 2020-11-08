@@ -323,8 +323,8 @@ public:
       , m_alog(alog)
       , m_elog(elog)
       , m_rng(rng)
-      , m_local_close_code(close::status::abnormal_close)
-      , m_remote_close_code(close::status::abnormal_close)
+      , m_local_close_code(closews::status::abnormal_close)
+      , m_remote_close_code(closews::status::abnormal_close)
       , m_is_http(false)
       , m_http_state(session::http_state::init)
       , m_was_clean(false)
@@ -559,7 +559,7 @@ public:
     size_t get_max_message_size() const {
         return m_max_message_size;
     }
-    
+
     /// Set maximum message size
     /**
      * Set maximum message size. Maximum message size determines the point at 
@@ -797,10 +797,10 @@ public:
      * @param code The close code to send
      * @param reason The close reason to send
      */
-    void close(close::status::value const code, std::string const & reason);
+    void close(closews::status::value const code, std::string const & reason);
 
     /// exception free variant of close
-    void close(close::status::value const code, std::string const & reason,
+    void close(closews::status::value const code, std::string const & reason,
         std::error_code & ec);
 
     ////////////////////////////////////////////////
@@ -1214,7 +1214,7 @@ public:
     /**
      * @return The WebSocket close code sent by this endpoint.
      */
-    close::status::value get_local_close_code() const {
+    closews::status::value get_local_close_code() const {
         return m_local_close_code;
     }
 
@@ -1230,7 +1230,7 @@ public:
     /**
      * @return The WebSocket close code sent by the remote endpoint.
      */
-    close::status::value get_remote_close_code() const {
+    closews::status::value get_remote_close_code() const {
         return m_remote_close_code;
     }
 
@@ -1396,8 +1396,8 @@ private:
      * @param reason The close reason to send
      * @return A status code, zero on success, non-zero otherwise
      */
-    std::error_code send_close_ack(close::status::value code =
-        close::status::blank, std::string const & reason = std::string());
+    std::error_code send_close_ack(closews::status::value code =
+        closews::status::blank, std::string const & reason = std::string());
 
     /// Send close frame
     /**
@@ -1414,8 +1414,8 @@ private:
      * @param ack Whether or not this is an acknowledgement close frame
      * @return A status code, zero on success, non-zero otherwise
      */
-    std::error_code send_close_frame(close::status::value code =
-        close::status::blank, std::string const & reason = std::string(), bool ack = false,
+    std::error_code send_close_frame(closews::status::value code =
+        closews::status::blank, std::string const & reason = std::string(), bool ack = false,
         bool terminal = false);
 
     /// Get a pointer to a new WebSocket protocol processor for a given version
@@ -1610,13 +1610,13 @@ private:
 
     // Close state
     /// Close code that was sent on the wire by this endpoint
-    close::status::value    m_local_close_code;
+    closews::status::value    m_local_close_code;
 
     /// Close reason that was sent on the wire by this endpoint
     std::string             m_local_close_reason;
 
     /// Close code that was received on the wire from the remote endpoint
-    close::status::value    m_remote_close_code;
+    closews::status::value    m_remote_close_code;
 
     /// Close reason that was received on the wire from the remote endpoint
     std::string             m_remote_close_reason;

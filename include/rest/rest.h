@@ -1,4 +1,3 @@
-#pragma once
 #ifndef REST_API
 #define REST_API
 

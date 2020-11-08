@@ -41,7 +41,7 @@
 #include <string>
 
 /// A package of types and methods for manipulating WebSocket close codes.
-namespace close {
+namespace closews {
 /// A package of types and methods for manipulating WebSocket close status'
 namespace status {
     /// The type of a close code value.

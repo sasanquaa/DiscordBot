@@ -6,7 +6,7 @@
 discord_bot::discord_bot(std::string h, std::string t) :
 	m_host(h),
 	m_token(t),
-	m_ws_route("/?v=6&encoding=json"),
+	m_ws_route("/?v=6&encoding=json&compress=zlib-stream"),
 	m_rest(new rest()),
 	m_on_open(nullptr),
 	m_on_message(nullptr),
@@ -18,7 +18,7 @@ discord_bot::discord_bot(std::string h, std::string t) :
 	m_rest_route("/api")
 {
 	m_rest->open();
-	m_gateway = m_rest->send(REST_GET, m_rest_route + "/gateway/bot", "Authorization: Bot " + m_token)["data"];
+	m_gateway = m_rest->send(REST_GET, m_rest_route + "/gateway/bot", "Connection: keep-alive\nAuthorization: Bot " + m_token)["data"];
 	if (!m_gateway.count("url")) {
 		m_client->get_alog().write(logger::alevel::app, NAME + " Failed to request gateway...");
 		exit(EXIT_FAILURE);
@@ -144,8 +144,9 @@ void discord_bot::on_open_internal(dconnection_hdl hdl) {
 }
 
 void discord_bot::on_message_internal(dclient c, dconnection_hdl hdl, msg_ptr msg) {
+	const std::string& raw = msg->get_payload();
 
-	nlohmann::json j = nlohmann::json::parse(msg->get_payload());
+	nlohmann::json j = nlohmann::json::parse(raw);
 	m_sequence = j["s"].is_null() ? m_sequence : j["s"].get<int>();
 
 	int op = j["op"].get<int>();

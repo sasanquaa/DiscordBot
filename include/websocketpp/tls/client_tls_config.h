@@ -27,7 +27,7 @@
 #include <random>
 
 // Extensions
-#include <websocketpp/extensions/permessage_deflate/disabled.hpp>
+#include <websocketpp/extensions/permessage_deflate/enabled.hpp>
 
 /*
 * This is a wrapper class for std::mutex
@@ -81,6 +81,7 @@ struct client_tls_config{
 
 	static bool const enable_multithreading = true;
 
+
 	struct transport_config {
 		typedef type::concurrency_type concurrency_type;
 		typedef type::alog_type alog_type;
@@ -119,8 +120,8 @@ struct client_tls_config{
 
 	typedef tls::endpoint<transport_config> transport_type;
 
-
 	typedef class connection_base{} connection_base;
+
 	typedef class endpoint_base{} endpoint_base;
 
 	static const long timeout_open_handshake = 0;
@@ -129,6 +130,16 @@ struct client_tls_config{
 
 	static const long timeout_pong = 0;
 
+    struct permessage_deflate_config {
+        typedef client_tls_config::request_type request_type;
+
+        static const bool allow_disabling_context_takeover = true;
+
+        static const uint8_t minimum_outgoing_window_bits = 8;
+    };
+
+    typedef extensions::permessage_deflate::enabled
+        <permessage_deflate_config> permessage_deflate_type;
 
 	static const int client_version = 13;
 
@@ -151,17 +162,6 @@ struct client_tls_config{
     static const size_t max_http_body_size = 32000000;
 
     static const bool enable_extensions = true;
-
-    struct permessage_deflate_config {
-        typedef client_tls_config::request_type request_type;
-
-        static const bool allow_disabling_context_takeover = true;
-
-        static const uint8_t minimum_outgoing_window_bits = 8;
-    };
-
-    typedef extensions::permessage_deflate::disabled
-        <permessage_deflate_config> permessage_deflate_type;
 
 };
 

@@ -28,7 +28,6 @@
 #ifndef WEBSOCKETPP_PROCESSOR_EXTENSION_PERMESSAGEDEFLATE_HPP
 #define WEBSOCKETPP_PROCESSOR_EXTENSION_PERMESSAGEDEFLATE_HPP
 
-
 #include <websocketpp/common/cpp11.hpp>
 #include <memory>
 #include <websocketpp/common/platforms.hpp>
@@ -286,8 +285,8 @@ public:
             &m_dstate,
             Z_DEFAULT_COMPRESSION,
             Z_DEFLATED,
-            -1*deflate_bits,
-            4, // memory level 1-9
+            deflate_bits,
+            6, // memory level 1-9
             Z_DEFAULT_STRATEGY
         );
 
@@ -297,7 +296,7 @@ public:
 
         ret = inflateInit2(
             &m_istate,
-            -1*inflate_bits
+            inflate_bits
         );
 
         if (ret != Z_OK) {
@@ -717,7 +716,7 @@ private:
                 m_server_max_window_bits = bits;
                 break;
             case mode::largest:
-                m_server_max_window_bits = std::min(bits,m_server_max_window_bits);
+                m_server_max_window_bits = min(bits,m_server_max_window_bits);
                 break;
             case mode::smallest:
                 m_server_max_window_bits = min_server_max_window_bits;
@@ -777,7 +776,7 @@ private:
                 m_client_max_window_bits = bits;
                 break;
             case mode::largest:
-                m_client_max_window_bits = std::min(bits,m_client_max_window_bits);
+                m_client_max_window_bits = min(bits,m_client_max_window_bits);
                 break;
             case mode::smallest:
                 m_client_max_window_bits = min_client_max_window_bits;
@@ -804,8 +803,8 @@ private:
     bool m_initialized;
     int m_flush;
     size_t m_compress_buffer_size;
-    std::unique_ptr_uchar_array m_compress_buffer;
-    std::unique_ptr_uchar_array m_decompress_buffer;
+    std::unique_ptr<unsigned char[]> m_compress_buffer;
+    std::unique_ptr<unsigned char[]> m_decompress_buffer;
     z_stream m_dstate;
     z_stream m_istate;
 };

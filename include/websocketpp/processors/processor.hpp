@@ -384,7 +384,7 @@ public:
     /**
      * Close preparation is entirely state free. The code and reason are both
      * subject to validation. Reason must be valid UTF-8. Code must be a valid
-     * un-reserved WebSocket close code. Use close::status::no_status to
+     * un-reserved WebSocket close code. Use closews::status::no_status to
      * indicate no code. If no code is supplied a reason may not be specified.
      *
      * @param code The close code to send
@@ -392,7 +392,7 @@ public:
      * @param out The message buffer to prepare the fame in
      * @return Status code, zero on success, non-zero on failure
      */
-    virtual std::error_code prepare_close(close::status::value code,
+    virtual std::error_code prepare_close(closews::status::value code,
         std::string const & reason, message_ptr out) const = 0;
 protected:
     bool const m_secure;
